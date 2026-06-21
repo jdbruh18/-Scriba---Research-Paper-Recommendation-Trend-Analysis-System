@@ -155,7 +155,7 @@ def get_trends_and_clusters():
         df['citations'] = pd.to_numeric(df['citations'], errors='coerce').fillna(0).astype(int)
         
         # 3. Trends Over Time: Year vs Category count
-        years = sorted(list(df['year'].unique()))
+        years = [int(y) for y in sorted(list(df['year'].unique()))]
         categories = sorted(list(df['category'].unique()))
         
         # Initialize counts
@@ -206,7 +206,7 @@ def get_trends_and_clusters():
             "status": "success",
             "clusters": {
                 "nodes": plot_data,
-                "labels": cluster_labels
+                "labels": {str(k): v for k, v in cluster_labels.items()}
             },
             "timeline": {
                 "years": years,
